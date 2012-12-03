@@ -6,11 +6,12 @@ class Bluetooth
 {
 	public:
 		const int toWait = 15000; // Temps à attendre en millisecondes
+		typedef void(*callback)(void*);
 
 		Bluetooth();
 		~Bluetooth();
 
-		bool waitForConnection(); // Attend une connection, retourne false si temps dépassé
+		bool waitForConnection(callback cb); // Attend une connection, retourne false si temps dépassé. La fonction cb sera appelé régulièrement si cb est différent de NULL.
 		bool send(char* buffer, unsigned int size);
 		unsigned int receive(char* buffer, unsigned int size); // Retourne le nombre d'octets lus
 		bool connected(); // Teste si la connection est valide
