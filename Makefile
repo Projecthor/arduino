@@ -19,13 +19,15 @@ connect : transmit
 	screen $(PORT) $(BAUDRATE)
 
 clean :
-	cd core && touch tmp.o tmp.a
-	cd core && make clean
 	rm -vf $(OBJS)
 	rm -vf $(NAME).{elf,hex}
 
+mr-proper : clean
+	cd core && touch tmp.o tmp.a
+	cd core && make clean
+
 rec : clean $(NAME).hex
 
-.PHONY:clean connect transmit rec
+.PHONY:clean connect transmit rec mr-proper
 
 
