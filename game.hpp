@@ -7,9 +7,9 @@
 class Game
 {
 	public:
-		enum Difficulty{VEASY,EASY,NORMAL,MEDIUM,DIFFICULT,DIVINITY};
+		enum Difficulty{EASY,NORMAL,DIFFICULT,DIVINITY,NONE};
 
-		Game(Bluetooth connection);
+		Game(Bluetooth* connection);
 		~Game();
 
 		bool waitForDifficulty(); // Si false fin du jeu
