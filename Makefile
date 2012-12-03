@@ -24,6 +24,8 @@ clean :
 	rm -vf $(OBJS)
 	rm -vf $(NAME).{elf,hex}
 
-.PHONY:clean connect transmit
+rec : clean $(NAME).hex
+
+.PHONY:clean connect transmit rec
 
 
