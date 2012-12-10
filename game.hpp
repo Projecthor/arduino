@@ -17,14 +17,16 @@ class Game
 
 		bool waitOrder(); // Attend l'ordre de tirer -> si false fin du jeu
 		int computeAngle(); // détermine l'angle de tir
-		bool checkSecurity(); // Teste si quelqu'un passe devant
+		bool checkSecurity(); // Teste si quelqu'un passe devant, renvoie vrai si qqun
 
 	private:
 		Bluetooth* m_con; // connection
 		Difficulty m_dif;
-		unsigned int m_dist; // Distance de la cible en cm
+		unsigned int m_dist; // Distance de la cible en mm
 
 		unsigned int computeDistance();
+
+		const int maxMov = 2000; // différence maxi lors de la détection d'obstacle en mm
 };
 
 #endif//DEF_GAME
