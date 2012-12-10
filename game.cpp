@@ -35,6 +35,11 @@ bool Game::checkSecurity()
 {
 	int diff = computeDistance() - m_dist;
 	diff *= (diff < 0 ? -1 : 1);
+
+	if( diff >= maxMov )
+		return true;
+	else
+		return false;
 }
 
 unsigned int Game::computeDistance()
