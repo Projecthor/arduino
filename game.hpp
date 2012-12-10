@@ -25,8 +25,18 @@ class Game
 		unsigned int m_dist; // Distance de la cible en mm
 
 		unsigned int computeDistance();
+		int relToAngle(int dist); // convertit une distance verticale par rapport au centre de la cible en angle nécessaire
 
-		const int maxMov = 2000; // différence maxi lors de la détection d'obstacle en mm
+		const unsigned int maxMov = 20; // différence maxi lors de la détection d'obstacle en mm
+		const unsigned int sizeCible = 500; // Hauteur de la cible en mm
+		const unsigned int midCible = sizeCible / 2; // Milieu de la cible
+		const unsigned int origVit = 6260; // vitesse à la sortie du canon en mm/s
+		struct Pos
+		{
+			unsigned int x;
+			unsigned int y;
+		};
+		const Pos decal = {x : 100, y : 100}; // Décalage du centre de rotation du canon par rapport au capteur de distance.
 };
 
 #endif//DEF_GAME
