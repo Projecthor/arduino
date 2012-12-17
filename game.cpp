@@ -66,7 +66,6 @@ bool Game::waitOrder()
 
 int Game::computeAngle()
 {
-	// TODO calculer l'angle en fonction du niveau de difficulté
 	long prob = random(0, 5);
 	bool hasprob = prob >= 2;
 	int dist;
