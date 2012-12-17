@@ -5,6 +5,8 @@
 : m_con(connection), m_dif(NONE), m_dist(0)
 {
 	// TODO initialisation capteur de distance
+
+	randomSeed( analogRead(0) ); // Initialisation des valeurs aléatoires
 }
 
 Game::~Game()
@@ -30,6 +32,41 @@ bool Game::waitOrder()
 int Game::computeAngle()
 {
 	// TODO calculer l'angle en fonction du niveau de difficulté
+	long prob = random(0, 5);
+	bool hasprob = prob >= 2;
+	int dist;
+
+	switch(m_dif)
+	{
+		case EASY:
+			if( hasprob )
+				dist = random(2 * thirdCible, midCible);
+			else
+				dist = random(0, 2 * thirdCible);
+			break;
+		case NORMAL:
+			dist = random(0, midCible);
+			if( hasprob )
+			{
+				dist /= 3;
+				dist += thirdCible;
+			}
+			else if( dist >= thirdCible )
+				dist += thirdCible;
+			break;
+		case DIFFICULT:
+			dist = random(0, midCible);
+			if( hasprob )
+				dist /= 3;
+			break;
+		case DIVINITY:
+			dist = 0;
+			break;
+	}
+	if( random(0,2) == 0 )
+		dist *= -1;
+
+	return relToAngle(dist);
 }
 
 bool Game::checkSecurity()
