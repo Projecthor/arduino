@@ -16,7 +16,33 @@ Game::~Game()
 
 bool Game::waitForDifficulty()
 {
-	// TODO protocole bluetooth
+	// TODO éviter boucle infinie
+	char buffer[1];
+	while( m_con->receive(buffer, 1) != 1 )
+	{
+		switch( buffer[0] )
+		{
+			case 0:
+				m_dif = EASY;
+				break;
+			case 1:
+				m_dif = NORMAL;
+				break;
+			case 2:
+				m_dif = DIFFICULT;
+				break;
+			case 3:
+				m_dif = DIVINITY;
+				break;
+			default:
+				buffer[0] = 0xff;
+				return false;
+				break;
+		}
+
+		m_con->send(buffer, 1);
+	}
+	return true;
 }
 
 void Game::getDistance()
@@ -26,7 +52,16 @@ void Game::getDistance()
 
 bool Game::waitOrder()
 {
-	// TODO protocole bluetooth
+	// TODO éviter boucle infinie
+	char buffer[2];
+	while( m_con->receive(buffer, 2) != 2 )
+	{
+		if( buffer[0] != 0x0f )
+			return false;
+		buffer[0] = 0xf0;
+		m_con->send(buffer, 2);
+	}
+	return true;
 }
 
 int Game::computeAngle()
