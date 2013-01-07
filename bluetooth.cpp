@@ -31,7 +31,10 @@ bool Bluetooth::send(char* buffer, unsigned int size)
 
 unsigned int Bluetooth::receive(char* buffer, unsigned int size)
 {
-	// TODO recevoir un message
+	unsigned int i;
+	for(i=0; !m_btcard.available() && i < size; ++i)
+		buffer[i] = m_btcard.read();
+	return i;
 }
 
 bool Bluetooth::connected()
