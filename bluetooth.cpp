@@ -1,18 +1,27 @@
 #include "bluetooth.hpp"
 
 Bluetooth::Bluetooth()
+	: m_btcard(0,1)
 {
-	// TODO initialiser module bluetooth
+	m_btcard.begin(9600);
 }
 
 Bluetooth::~Bluetooth()
-{
-	// TODO libérer module bluetooth
-}
+{}
 
-bool Bluetooth::waitForConnection(callback cb)
+bool Bluetooth::waitForConnection(callback cb, void* data)
 {
-	// TODO attendre connection entrante
+	unsigned int last = millis();
+	while( !m_btcard )
+	{
+		if( cb != NULL )
+			cb(data);
+
+		if( millis() - last > toWait )
+			return false;
+	}
+	
+	return true;
 }
 
 bool Bluetooth::send(char* buffer, unsigned int size)
