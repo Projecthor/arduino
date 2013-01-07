@@ -26,7 +26,7 @@ bool Bluetooth::waitForConnection(callback cb, void* data)
 
 bool Bluetooth::send(char* buffer, unsigned int size)
 {
-	// TODO envoyer un message
+	return m_btcard.write(buffer) == size;
 }
 
 unsigned int Bluetooth::receive(char* buffer, unsigned int size)
