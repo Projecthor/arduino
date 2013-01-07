@@ -39,7 +39,7 @@ unsigned int Bluetooth::receive(char* buffer, unsigned int size)
 
 bool Bluetooth::connected()
 {
-	// TODO tester la connection
+	return m_btcard.isListening();
 }
 
 
