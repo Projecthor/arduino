@@ -16,7 +16,7 @@ Game::~Game()
 
 bool Game::waitForDifficulty()
 {
-	// TODO éviter boucle infinie
+	unsigned int first = millis();
 	char buffer[1];
 	while( m_con->receive(buffer, 1) != 1 )
 	{
@@ -41,6 +41,9 @@ bool Game::waitForDifficulty()
 		}
 
 		m_con->send(buffer, 1);
+
+		if( millis() - first > m_con->toWait )
+			return false;
 	}
 	return true;
 }
@@ -52,7 +55,7 @@ void Game::getDistance()
 
 bool Game::waitOrder()
 {
-	// TODO éviter boucle infinie
+	unsigned int first = millis();
 	char buffer[2];
 	while( m_con->receive(buffer, 2) != 2 )
 	{
@@ -60,6 +63,9 @@ bool Game::waitOrder()
 			return false;
 		buffer[0] = 0xf0;
 		m_con->send(buffer, 2);
+
+		if( millis() - first > m_con->toWait )
+			return false;
 	}
 	return true;
 }
