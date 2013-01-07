@@ -2,7 +2,8 @@
 #ifndef DEF_BLUETOOTH
 #define DEF_BLUETOOTH
 
-#include "Arduino.h"
+#include <Arduino.h>
+#include <SoftwareSerial.h>
 
 class Bluetooth
 {
