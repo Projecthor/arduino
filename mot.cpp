@@ -46,6 +46,6 @@ Motor& Motor::operator-=(int angle)
 
 void Motor::update()
 {
-	// Rotation du moteur
+	// TODO Rotation du moteur
 }
 
