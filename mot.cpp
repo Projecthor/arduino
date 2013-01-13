@@ -3,13 +3,11 @@
 Motor::Motor()
 	: m_angle(0), m_dest(0)
 {
-	// TODO initialisation du moteur
+	m_mot.attach(mot_pin);
 }
 
 Motor::~Motor()
-{
-	// TODO libération du moteur
-}
+{}
 
 int Motor::currentAngle() const
 {
@@ -46,6 +44,6 @@ Motor& Motor::operator-=(int angle)
 
 void Motor::update()
 {
-	// TODO Rotation du moteur
+	m_mot.write(m_dest);
 }
 
