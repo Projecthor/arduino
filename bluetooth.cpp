@@ -8,7 +8,7 @@ Bluetooth::Bluetooth()
 
 	m_btcard.begin(38400);
 	m_btcard.print("\r\n+STWMOD=0\r\n");
-	m_btcard.print("\r\n+STNA=SeeedBTSlave\r\n");
+	m_btcard.print("\r\n+STNA=Projecthor01\r\n");
 	m_btcard.print("\r\n+STOAUT=1\r\n");
 	m_btcard.print("\r\n+STAUTO=0\r\n");
 	delay(2000);
