@@ -6,7 +6,6 @@ class Canon
 {
 	public:
 		Canon();
-		~Canon();
 
 		void load(); // Fonction bloquuante, charge le canon
 		void fire();

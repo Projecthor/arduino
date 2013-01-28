@@ -6,9 +6,6 @@ Motor::Motor()
 	m_mot.attach(mot_pin);
 }
 
-Motor::~Motor()
-{}
-
 int Motor::currentAngle() const
 {
 	return m_angle;

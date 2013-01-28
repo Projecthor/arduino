@@ -5,11 +5,6 @@ Canon::Canon()
 	// TODO initialiser canon
 }
 
-Canon::~Canon()
-{
-	// TODO libérer canon
-}
-
 void Canon::load()
 {
 	// TODO faire charger le canon

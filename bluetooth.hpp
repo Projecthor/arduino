@@ -12,7 +12,6 @@ class Bluetooth
 		typedef void(*callback)(void*);
 
 		Bluetooth();
-		~Bluetooth();
 
 		bool waitForConnection(callback cb, void* data); // Attend une connection, retourne false si temps dépassé. La fonction cb sera appelé régulièrement si cb est différent de NULL.
 		bool send(char* buffer, unsigned int size);

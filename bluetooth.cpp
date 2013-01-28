@@ -19,9 +19,6 @@ Bluetooth::Bluetooth()
 	m_btcard.flush();
 }
 
-Bluetooth::~Bluetooth()
-{}
-
 bool Bluetooth::waitForConnection(callback cb, void* data)
 {
 	unsigned int last = millis();

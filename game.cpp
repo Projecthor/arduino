@@ -10,9 +10,6 @@ const int distPin = 14;
 	randomSeed( analogRead(0) ); // Initialisation des valeurs aléatoires
 }
 
-Game::~Game()
-{}
-
 bool Game::waitForDifficulty()
 {
 	unsigned int first = millis();

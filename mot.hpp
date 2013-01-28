@@ -10,7 +10,6 @@ class Motor
 		const int mot_pin = 9;
 
 		Motor();
-		~Motor();
 
 		int currentAngle() const;
 		int destAngle() const;

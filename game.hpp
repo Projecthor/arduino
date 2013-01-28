@@ -10,7 +10,6 @@ class Game
 		enum Difficulty{EASY,NORMAL,DIFFICULT,DIVINITY,NONE};
 
 		Game(Bluetooth* connection);
-		~Game();
 
 		bool waitForDifficulty(); // Si false fin du jeu
 		void getDistance();
