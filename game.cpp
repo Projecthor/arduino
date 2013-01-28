@@ -40,8 +40,6 @@ bool Game::waitForDifficulty()
 				break;
 		}
 
-		m_con->send(buffer, 1);
-
 		if( millis() - first > m_con->toWait )
 			return false;
 	}
@@ -62,7 +60,6 @@ bool Game::waitOrder()
 		if( buffer[0] != 0x0f )
 			return false;
 		buffer[0] = 0xf0;
-		m_con->send(buffer, 2);
 
 		if( millis() - first > m_con->toWait )
 			return false;

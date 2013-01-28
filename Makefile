@@ -1,6 +1,6 @@
 NAME=projector
 OBJS=projecthor.o mot.o bluetooth.o canon.o game.o
-FLAGS=-g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=22 -I /usr/share/arduino/hardware/arduino/cores/arduino/ -I /usr/share/arduino/libraries/SoftwareSerial/ -I /usr/share/arduino/libraries/Servo/
+FLAGS=-g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=22 -I /usr/lib/arduino/hardware/arduino/cores/arduino/ -I /usr/lib/arduino/libraries/SoftwareSerial/ -I /usr/lib/arduino/libraries/Servo/ -I /usr/lib/arduino/hardware/arduino/variants/standard/
 PORT=/dev/ttyUSB0
 BAUDRATE=57600
 
