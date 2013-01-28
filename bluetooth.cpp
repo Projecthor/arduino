@@ -25,7 +25,7 @@ Bluetooth::~Bluetooth()
 bool Bluetooth::waitForConnection(callback cb, void* data)
 {
 	unsigned int last = millis();
-	while( !m_btcard.isListening() )
+	while( !connected() )
 	{
 		if( cb != NULL )
 			cb(data);
@@ -46,7 +46,7 @@ unsigned int Bluetooth::receive(char* buffer, unsigned int size)
 {
 	unsigned int i;
 	for(i=0; m_btcard.available() && i < size; ++i)
-		buffer[i] = m_btcard.read();
+		buffer[i] = m_btcard.read() + 128;
 	return i;
 }
 
