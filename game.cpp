@@ -1,18 +1,17 @@
 #include "game.hpp"
 #include "Arduino.h"
 
+const int distPin = 14;
+
 	Game::Game(Bluetooth* connection)
 : m_con(connection), m_dif(NONE), m_dist(0)
 {
-	// TODO initialisation capteur de distance
-
+	pinMode(distPin, OUTPUT);
 	randomSeed( analogRead(0) ); // Initialisation des valeurs aléatoires
 }
 
 Game::~Game()
-{
-	// TODO libération capteur de distance
-}
+{}
 
 bool Game::waitForDifficulty()
 {
@@ -119,7 +118,18 @@ bool Game::checkSecurity()
 
 unsigned int Game::computeDistance()
 {
-	// TODO récupère la distance
+	//Lancement de l'ultrason
+	pinMode(distPin, OUTPUT);
+	digitalWrite(distPin, LOW);
+	delayMicroseconds(10);
+	digitalWrite(distPin, HIGH);
+	delayMicroseconds(15);
+	digitalWrite(distPin, LOW);
+	delayMicroseconds(20);
+
+	//lecture de l'utrason
+	pinMode(distPin, INPUT);
+	return pulseIn(distPin,HIGH) / 29 / 2;
 }
 
 int Game::distFunction(int angle)
