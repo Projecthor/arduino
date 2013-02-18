@@ -14,9 +14,14 @@ class Bluetooth
 		Bluetooth();
 
 		bool waitForConnection(callback cb, void* data); // Attend une connection, retourne false si temps dépassé. La fonction cb sera appelé régulièrement si cb est différent de NULL.
-		bool send(char* buffer, unsigned int size);
 		unsigned int receive(char* buffer, unsigned int size); // Retourne le nombre d'octets lus
 		bool connected(); // Teste si la connection est valide
+
+		template<typename T>
+		bool send(T buffer)
+		{
+			return m_btcard.print(buffer) != 0;
+		}
 
 	private:
 		SoftwareSerial m_btcard;
