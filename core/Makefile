@@ -1,19 +1,24 @@
 FLAGS=-Wall -Wextra
-CXXFLAGS=$(FLAGS) -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=22 -I /usr/lib/arduino/hardware/arduino/cores/arduino/ -I /usr/lib/arduino/hardware/arduino/variants/standard/
-CFLAGS=$(FLAGS) -g -Os -w -fno-exceptions -fdata-sections -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=22 -I /usr/lib/arduino/hardware/arduino/cores/arduino/ -I /usr/lib/arduino/hardware/arduino/variants/standard/
-FILES=WString.o wiring_digital.o wiring.o wiring_analog.o WInterrupts.o Tone.o Print.o pins_arduino.o main.o HardwareSerial.o wiring_shift.o wiring_pulse.o Print.o WMath.o
+APATH=/usr/lib/arduino
+CXXFLAGS=$(FLAGS) -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=103 -I $(APATH)/hardware/arduino/cores/arduino/ -I $(APATH)/libraries/SoftwareSerial/ -I $(APATH)/hardware/arduino/variants/standard/ -I $(APATH)/libraries/Servo/
+CFLAGS=$(FLAGS) -g -Os -w -fno-exceptions -fdata-sections -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=103 -I $(APATH)/hardware/arduino/cores/arduino/ -I $(APATH)/libraries/SoftwareSerial/ -I $(APATH)/hardware/arduino/variants/standard/ -I $(APATH)/libraries/Servo/
+FILES=WString.o wiring_digital.o wiring.o wiring_analog.o WInterrupts.o Tone.o Print.o HardwareSerial.o wiring_shift.o wiring_pulse.o Print.o WMath.o SoftwareSerial.o
 
 
-all : $(FILES) core.a
+all : $(FILES)
+	# avr-ar rcsv core.a *.o
 
-core.a : $(FILES)
-	avr-ar rcsv core.a $^
-
-%.o : /usr/lib/arduino/hardware/arduino/cores/arduino/%.c
+%.o : $(APATH)/hardware/arduino/cores/arduino/%.c
 	avr-gcc $(CFLAGS) -c $< -o $@
 
-%.o : /usr/lib/arduino/hardware/arduino/cores/arduino/%.cpp
+%.o : $(APATH)/hardware/arduino/cores/arduino/%.cpp
 	avr-g++ $(CXXFLAGS) -c $< -o $@
+
+SoftwareSerial.o : $(APATH)/libraries/SoftwareSerial/SoftwareSerial.cpp
+	avr-g++ $(CFLAGS) -c $< -o $@
+
+pins_arduino.o : /usr/share/arduino/hardware/arduino/cores/arduino/pins_arduino.c
+	avr-g++ $(CFLAGS) -c $< -o $@
 
 clean :
 	rm -vf *.o
