@@ -2,6 +2,7 @@
 #include "bluetooth.hpp"
 #include "game.hpp"
 #include "canon.hpp"
+#include "mot.cpp"
 
 int main(void)
 {
@@ -17,6 +18,7 @@ int main(void)
 	Bluetooth bt;
 	Game game(&bt);
 	Canon c;
+	Motor motor;
 	bool ingame = false;
 
 	Serial.println("Début.");
@@ -47,6 +49,8 @@ end:
 				goto end;
 			}
 			c.load();
+			motor = game.computeAngle();
+			motor.update();
 			bt.send("r");
 
 			if( !game.waitFireOrder() )
