@@ -90,7 +90,7 @@ beginfire:
 int Game::computeAngle()
 {
 	long prob = random(0, 5);
-	bool hasprob = prob >= 2;
+	bool hasprob = (prob >= 2);
 	int dist;
 
 	switch(m_dif)
@@ -171,25 +171,46 @@ unsigned int Game::computeDistance()
 
 	//lecture de l'utrason
 	pinMode(distPin, INPUT);
-	return pulseIn(distPin,HIGH) / 29 / 2;
+	// return pulseIn(distPin,HIGH) / 29 / 2;
+	return 2000;
 }
 
 int Game::distFunction(int angle)
 {
-	int radian = 3.1514 * float(angle) / 180.0;
-	long vert = cos(radian); // On calcule le cosinus
+	float radian = 3.1514 * float(angle) / 180.0;
+	float vert = cos(radian); // On calcule le cosinus
 	vert *= vert; // On élève au carré
+	Serial.println(vert);
 	vert *= 2 * origVit * origVit;
-	vert = gravity * m_dist * m_dist / vert;
+	Serial.println(vert);
+	Serial.print("dist : ");
+	Serial.println(m_dist);
+	vert = (gravity * m_dist * m_dist) / vert;
+	Serial.println(vert);
 	vert *= -1;
+	Serial.println(vert);
 	vert += m_dist * tan(radian);
+	Serial.println(vert);
 	vert += decal.x;
+	Serial.println(vert);
 	return vert;
 }
 
 // L'algo procède par dichotomie car la fonction est croissante sur [0;45]
 int Game::relToAngle(int dist)
 {
+	// DEBUG
+	Serial.print("Dist : ");
+	Serial.println(dist);
+
+	for(int i = 0; i <= 45; ++i)
+	{
+		Serial.print(i);
+		Serial.print("° = ");
+		Serial.println(distFunction(i));
+	}
+	// END DEBUG 
+
 	int angle = 22;
 	int min = 0, max = 45;
 	int ldist;
@@ -203,12 +224,12 @@ int Game::relToAngle(int dist)
 			continuer = false;
 		else if( ldist < dist )
 		{
-			max = angle;
+			min = angle;
 			angle = min + max / 2;
 		}
-		else if( ldist > dist )
+		else
 		{
-			min = angle;
+			max = angle;
 			angle = min + max / 2;
 		}
 	}
