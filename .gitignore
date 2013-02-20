@@ -1,5 +1,9 @@
 # Compiled
+*.a
 *.o
 *.elf
 *.hex
 
+# Personal directories
+doc/
+test/
