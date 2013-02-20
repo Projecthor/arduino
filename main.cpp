@@ -19,6 +19,8 @@ int main(void)
 	Game game(&bt);
 	Canon c;
 	Motor motor;
+	motor = 0;
+	motor.update();
 	bool ingame = false;
 
 	Serial.println("Début.");
@@ -36,7 +38,7 @@ end:
 			else
 			{
 				Serial.println("Début du jeu.");
-				// game.getDistance();
+				game.getDistance();
 				ingame = true;
 			}
 		}
@@ -49,7 +51,9 @@ end:
 				goto end;
 			}
 			c.load();
-			motor = game.computeAngle();
+			int angle = game.computeAngle();
+			Serial.println(angle);
+			motor = angle;
 			motor.update();
 			bt.send("r");
 
@@ -57,6 +61,8 @@ end:
 			{
 				Serial.println("Erreur à la réception de l'ordre de tir !");
 				ingame = false;
+				motor = 0;
+				motor.update();
 				goto end;
 			}
 			c.fire();
