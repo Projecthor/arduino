@@ -205,12 +205,12 @@ int Game::relToAngle(int dist)
 		else if( ldist < dist )
 		{
 			min = angle;
-			angle = min + max / 2;
+			angle = (min + max) / 2;
 		}
 		else
 		{
 			max = angle;
-			angle = min + max / 2;
+			angle = (min + max) / 2;
 		}
 	}
 
