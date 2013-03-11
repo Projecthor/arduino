@@ -67,6 +67,9 @@ end:
 			}
 			c.fire();
 			bt.send(game.getScore());
+
+			motor = 45;
+			motor.update();
 		}
 
 
