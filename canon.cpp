@@ -5,19 +5,35 @@ Canon::Canon()
 {
 	Serial.begin(9600);
 	Serial.println("Canon !");
-	// TODO initialiser canon
+
+	pinMode(firePin, OUTPUT);
+	digitalWrite(firePin, LOW);
+	pinMode(loadPin, OUTPUT);
+	digitalWrite(loadPin, LOW);
 }
 
 void Canon::load()
 {
-	// TODO faire charger le canon
 	Serial.println("Chargement du canon.");
+
+	unsigned long ltime = millis();
+	while(millis() - ltime < loadTime)
+	{
+		digitalWrite(loadPin, LOW);
+		delay(50);
+		digitalWrite(loadPin, HIGH);
+		delay(50);
+	}
+	digitalWrite(loadPin, LOW);
 }
 
 void Canon::fire()
 {
-	// TODO déclencher le tir
 	Serial.println("FIRE !!!");
+
+	digitalWrite(firePin, HIGH);
+	delay(100);
+	digitalWrite(firePin, LOW);
 }
 
 
