@@ -53,12 +53,14 @@ bool Game::waitComputeOrder()
 {
 	unsigned int first = millis();
 	char buffer[2];
+	Serial.println("Wait order.");
 beginwait:
 	while( m_con->receive(buffer, 2) != 1 )
 	{
 		// if( millis() - first > m_con->toWait )
 		//	return false;
 	}
+	Serial.println("Something received.");
 
 	if( buffer[0] == 'e' )
 		return false;
@@ -160,6 +162,7 @@ bool Game::checkSecurity()
 
 unsigned int Game::computeDistance()
 {
+	Serial.println("computeDistance");
 	//Lancement de l'ultrason
 	pinMode(distPin, OUTPUT);
 	digitalWrite(distPin, LOW);
@@ -191,14 +194,22 @@ int Game::distFunction(int angle)
 // L'algo procède par dichotomie car la fonction est croissante sur [0;45]
 int Game::relToAngle(int dist)
 {
+	// Serial.println("Début de relToAngle.");
 	int angle = 22;
 	int min = 0, max = 45;
 	int ldist;
 	bool continuer = true;
 
+	// Serial.print("Dist : ");
+	// Serial.println(dist);
+
 	while( continuer )
 	{
 		ldist = distFunction(angle);
+		// Serial.print("distfunction(");
+		// Serial.print(angle);
+		// Serial.print(") = ");
+		// Serial.println(ldist);
 		if( max - min <= 1 
 				|| ldist == dist )
 			continuer = false;
@@ -212,6 +223,11 @@ int Game::relToAngle(int dist)
 			max = angle;
 			angle = (min + max) / 2;
 		}
+
+		// Serial.print("\tMin : ");
+		// Serial.println(min);
+		// Serial.print("\tMax : ");
+		// Serial.println(max);
 	}
 
 	return angle;
