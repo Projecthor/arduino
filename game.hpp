@@ -34,7 +34,8 @@ class Game
 		const unsigned int sizeCible = 600; // Hauteur de la cible en mm
 		const unsigned int midCible = sizeCible / 2; // Milieu de la cible
 		const unsigned int thirdCible = midCible / 3;
-		const unsigned int origVit = 6260; // vitesse à la sortie du canon en mm/s
+		// const unsigned int origVit = 6260; // vitesse à la sortie du canon en mm/s
+		const unsigned int origVit = 7000; // vitesse à la sortie du canon en mm/s
 		const unsigned int gravity = 10000; // La force gravitationelle en mm/s²
 		struct Pos
 		{
