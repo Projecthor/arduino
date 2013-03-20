@@ -32,7 +32,7 @@ void Canon::fire()
 	Serial.println("FIRE !!!");
 
 	digitalWrite(firePin, HIGH);
-	delay(100);
+	delay(2000);
 	digitalWrite(firePin, LOW);
 }
 
