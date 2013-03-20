@@ -23,6 +23,9 @@ int main(void)
 	motor.update();
 	bool ingame = false;
 
+	motor = 45;
+	motor.update();
+
 	Serial.println("Début.");
 
 	for (;;)
@@ -50,8 +53,11 @@ end:
 				ingame = false;
 				goto end;
 			}
+			Serial.println("Loading ...");
 			c.load();
+			Serial.println("Loaded ...");
 			int angle = game.computeAngle();
+			Serial.print("Angle : ");
 			Serial.println(angle);
 			motor = angle;
 			motor.update();
@@ -61,13 +67,14 @@ end:
 			{
 				Serial.println("Erreur à la réception de l'ordre de tir !");
 				ingame = false;
-				motor = 0;
+				motor = 45;
 				motor.update();
 				goto end;
 			}
 			c.fire();
 			bt.send(game.getScore());
 
+			delay(100);
 			motor = 45;
 			motor.update();
 		}
