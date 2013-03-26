@@ -44,6 +44,8 @@ end:
 		}
 		else
 		{
+			Serial.println("\n\n**** Nouvelle manche ****");
+
 			if( !game.waitComputeOrder() )
 			{
 				Serial.println("Erreur à la réception de l'ordre de préparation !");
