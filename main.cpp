@@ -19,12 +19,9 @@ int main(void)
 	Game game(&bt);
 	Canon c;
 	Motor motor;
-	motor = 0;
-	motor.update();
-	bool ingame = false;
-
 	motor = 45;
 	motor.update();
+	bool ingame = false;
 
 	Serial.println("Début.");
 
