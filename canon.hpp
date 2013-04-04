@@ -4,7 +4,8 @@
 
 const int loadPin = 2;
 const int firePin = 3;
-const unsigned long loadTime = 30000;
+// const unsigned long loadTime = 30000;
+const unsigned long loadTime = 10000;
 
 class Canon
 {
