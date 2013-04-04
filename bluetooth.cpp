@@ -18,7 +18,6 @@ Bluetooth::Bluetooth()
 	delay(2000);
 
 	m_btcard.print("\r\n+INQ=1\r\n");
-	// Serial.println("The slave bluetooth is inquirable!");
 	delay(2000);
 	m_btcard.flush();
 }
@@ -42,7 +41,9 @@ unsigned int Bluetooth::receive(char* buffer, unsigned int size)
 {
 	unsigned int i;
 	for(i=0; m_btcard.available() && i < size; ++i)
-		buffer[i] = m_btcard.read(); // + 128;
+	{
+		buffer[i] = m_btcard.read() + 128;
+	}
 	return i;
 }
 
