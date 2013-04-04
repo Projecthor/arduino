@@ -1,7 +1,7 @@
 #include "game.hpp"
 #include "Arduino.h"
 
-const int distPin = 14;
+const int distPin = 4;
 
 	Game::Game(Bluetooth* connection)
 : m_con(connection), m_dif(NONE), m_dist(0), m_score(0)
@@ -47,6 +47,7 @@ begin:
 void Game::getDistance()
 {
 	m_dist = computeDistance();
+	Serial.print("Distance : "); Serial.println(m_dist);
 }
 
 bool Game::waitComputeOrder()
@@ -151,8 +152,10 @@ int Game::computeAngle()
 
 bool Game::checkSecurity()
 {
-	int diff = computeDistance() - m_dist;
+	int diff = computeDistance();
+	diff -= m_dist;
 	diff *= (diff < 0 ? -1 : 1);
+	Serial.print("Check : "); Serial.println(diff);
 
 	if( diff >= maxMov )
 		return true;
@@ -174,8 +177,8 @@ unsigned int Game::computeDistance()
 
 	//lecture de l'utrason
 	pinMode(distPin, INPUT);
-	// return pulseIn(distPin,HIGH) / 29 / 2;
-	return 2000;
+	return (pulseIn(distPin,HIGH) / 29 * 5) + decal.x - 400;
+	// return 2000;
 }
 
 int Game::distFunction(int angle)
@@ -187,7 +190,7 @@ int Game::distFunction(int angle)
 	vert = (gravity * m_dist * m_dist) / vert;
 	vert *= -1;
 	vert += m_dist * tan(radian);
-	vert += decal.x;
+	vert += decal.y;
 	return vert;
 }
 
