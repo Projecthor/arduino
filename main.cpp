@@ -70,8 +70,12 @@ end:
 				motor.update();
 				goto end;
 			}
+			while(game.checkSecurity())
+			{ delay(500); }
 			c.fire();
-			bt.send(game.getScore());
+			int score = game.getScore();
+			Serial.print("Score : "); Serial.println(score);
+			bt.send(score);
 
 			delay(100);
 			motor = 45;
